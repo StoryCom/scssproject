@@ -1,0 +1,321 @@
+// fonts
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+// Variables
+
+$veryDarkBlue :hsl(243, 87%, 12%);
+$desaturatedBlue:hsl(238, 22%, 44%);
+$brightBlue:hsl(224, 93%, 58%);
+$moderateCyan:hsl(170, 45%, 43%);
+$lightGrayishBlue: hsl(240, 75%, 98%);
+$lightGray: hsl(0, 0%, 75%);
+$open:"Open Sans", sans-serif;
+$raleway:"Raleway", sans-serif;
+
+
+// mixins
+@mixin blue-button($background, $radius){
+    background-color: $background;
+    border-radius: $radius;
+    font-size: 16px;
+    color:#fff;
+    padding:12px 16px;
+    border:none;
+    cursor: pointer;
+}
+
+@mixin container-width($width, $margin, $padding){
+    max-width: $width;
+    margin:$margin;
+    padding:$padding;
+}
+
+@mixin grid-container($display, $column, $gap, $align){
+    display:$display;
+    grid-template-columns: $column;
+    gap:$gap;
+    align-items: $align;
+}
+
+input[type="submit"]{
+    @include blue-button($brightBlue, 4px);
+}
+
+// extend
+
+%input-text{
+    border:1px solid transparent;
+    border-radius: 4px;
+    background-color: #fff;
+    padding:12px 8px;
+}
+
+.inputMail{ @extend %input-text; border-color: $veryDarkBlue;}
+
+
+// Fonction
+
+@function shade-color($color, $percent){
+    @return mix($desaturatedBlue, $color, $percent);
+}
+
+
+// General
+
+*{
+    margin:0;
+    // background-color: shade-color(black, 90%);
+    // color: $brightBlue;
+}
+
+h1,h2{
+    font-family: $open;
+    font-size: 40px;
+    line-height: 1.5;
+}
+
+p{
+    font-family: $raleway;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+a{
+    text-decoration: none;
+    color:$veryDarkBlue;
+    line-height: 1.5;
+    font-family: $open;
+    transition:all 0.2s ease-in-out;
+
+    &:hover{
+        transition:all 0.2s ease-in-out;
+        color:$moderateCyan;
+    }
+}
+
+// header
+
+header{
+    @include container-width(1440px,auto,0 15px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    a img{
+        margin:10px 0;
+    }
+    nav ul{
+        display: flex;
+        gap:35px;
+        list-style: none;
+        padding: 0;
+    }
+}
+
+// main section 1
+
+#AllFiles{
+    @include container-width(1440px,50px auto,0 15px);
+    @include grid-container(grid,1fr 1fr,80px,center);
+
+    div{
+        display: flex;
+        gap:20px;
+        flex-direction: column;
+        
+        hgroup{
+            display: flex;
+            flex-direction: column;
+            gap:20px;
+
+            h1,p{
+                line-height: 1.5;
+            }
+        }
+    }
+
+    img{
+        width: 100%;
+    }
+
+}
+
+// Section 2
+
+#productive{
+    margin-top: 280px;
+    position: relative;
+    background-color: $lightGrayishBlue;
+    &::before{
+        content: "";
+        background-image: url(../img/bg-curve-desktop.svg);
+        position: absolute;
+        top: -113px;
+        width: 100%;
+        object-fit: cover;
+        background-size: cover;
+        height: 128px;
+    }
+    >div{
+        @include container-width(1440px,auto,120px 15px);
+        @include grid-container(grid,1fr 1fr,80px,center);
+
+        >img{
+            width:100%;
+        }
+
+        >div{
+            display: flex;
+            flex-direction: column;
+            gap:20px;
+
+            hgroup{
+                display: flex;
+                flex-direction: column;
+                gap:20px;
+            }
+
+            a{
+                color:$moderateCyan;
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                border-bottom: 1px solid;
+                width: fit-content;
+
+                &:hover{
+                    opacity: 0.7;
+                }
+            }
+
+            article{
+                width: 70%;
+                background-color: white;
+                padding: 30px;
+                box-shadow: 0px 1px 14px #e1e1e1;
+                border-radius: 6px;
+                margin-top: 35px;
+
+                div{
+                    @include grid-container(grid,17% auto,20px,center);
+                    margin:30px 0;
+
+                    img{
+                        width:100%;
+                        border-radius: 50%;
+                    }
+
+                    >hgroup{
+                        gap:0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Section 3
+
+#access{
+    background-color: $desaturatedBlue;
+
+    >div{
+        @include container-width(1440px,auto,100px 15px);
+        @include grid-container(grid,1fr 1fr,200px,center);
+        color:#fff;
+        >div{
+            display: none;
+        }
+
+        hgroup{
+            width:75%;
+        }
+
+        form{
+            display: flex;
+            flex-direction: column;
+            gap:24px;
+
+            input[type="submit"]{
+                width:fit-content;
+            }
+        }
+    }
+
+}
+
+// Footer
+
+footer{
+    background-color: $veryDarkBlue;
+    color:#fff;
+
+    >div{
+        @include container-width(1440px,auto,100px 15px);
+        @include grid-container(grid,1fr 2fr 1fr,50px,top);
+
+        h2{
+            margin-bottom: 20px;
+        }
+
+        >div:nth-child(2){
+            @include grid-container(grid,1fr 1fr,50px,top);
+        }
+        
+        ul{
+            list-style: none;
+            padding:0;
+            display: flex;
+            flex-direction: column;
+            gap:12px;
+            
+            li a{
+                color:#fff;
+            }
+        }
+
+        >div:nth-child(3) ul{
+           flex-direction: row;
+           gap:30px;
+
+           li a{
+                border:1px solid #fff;	
+                border-radius: 50%;
+                padding: 5px 8px;
+                
+                &:hover{
+                    opacity: 0.7;
+                }
+           }
+        }
+    }
+   
+}
+
+// Responsive
+
+@media screen and (max-width: 1024px) {
+    #AllFiles,
+    #productive > div,
+    #access > div,
+    footer > div,
+    footer > div > div:nth-child(2){
+        @include grid-container(grid,1fr,80px,center);
+
+    }
+
+}
+@media screen and (max-width: 767px) {
+    header{
+        flex-direction: column;
+    }
+    h1, h2{
+        font-size: 25px;
+    }
+
+    form{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+}
